@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Login{% endblock %}
+{% block h1 %}Welcome to the Fantasy Library{% endblock %}
+
+{% block content %}        
+
+	<div class="container py-5">
+		<h3>Login</h3>
+		<form method="POST">
+			{% csrf_token %}
+			{{ login_form | crispy  }}                    
+			<button class="btn btn-primary btn-sm btn-round" type="submit">Login</button>
+		</form>
+		<p class="text-center">Don't have an account? <a href="{% url 'register' %}">Create an account</a>.</p>
+	</div>
+	
+		{% for message in messages %}
+			{% if message.tags == 'success' %}
+				<div class="alert alert-success" role="alert">{{ message|escape|safe }}</div>
+			{% elif message.tags == 'error' %}
+				<div class="alert alert-danger" role="alert">{{ message|escape|safe }}</div>
+			{% endif %}
+		{% endfor %}
+
+{% endblock %}

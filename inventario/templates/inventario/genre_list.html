@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}List Genres{% endblock %}
+{% block h1 %}List Genres{% endblock %}
+
+{% block content %}
+<a type="button" class="btn btn-primary btn-sm btn-round" href="{% url 'genre_add' %}" name="book_add">Add Genre</a> 
+<hr />
+{% if page_obj %}
+    {% for genre in page_obj %}
+        <div class="container">
+            <h3><a href="{% url 'genre_details' id=genre.id page=page_obj.number %}">{{ genre.type }}</a></h3>
+            <hr>
+        </div>  
+    {% endfor %}
+{% else %}
+    <h2>Not Genre finding...</h2>
+{% endif %}
+    {% block pagination %}
+        {% if page_obj.has_previous %}
+            <a type="button" class="btn btn-primary btn-sm btn-round" href="{% url 'genres' page_obj.previous_page_number %}">
+                Previous Page
+            </a>
+        {% endif%}
+        {% if page_obj.has_next %}
+            <a type="button" class="btn btn-primary btn-sm btn-round"   href="{% url 'genres' page_obj.next_page_number %}">
+                Next Page
+            </a>
+        {% endif%}
+    {% endblock %}
+{% endblock %}

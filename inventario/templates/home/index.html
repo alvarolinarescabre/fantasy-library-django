@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+{% block h1 %}Welcome to the Fantasy Library{% endblock %}
+
+{% block content %}
+{% load static %}
+    <br />
+    <center>
+        <img src="{% static 'img/fantasy_library.png' %}" alt="Fantasy Library" width="40%">
+    </center>
+    <br />
+    <p class="text-center">Don't have an account? <a href="{% url 'register' %}">Create an account</a>.</p>
+{% endblock %}

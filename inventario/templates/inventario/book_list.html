@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}List Books{% endblock %}
+{% block h1 %}List Books{% endblock %}
+
+{% block content %}
+<a type="button" class="btn btn-primary btn-sm btn-round" href="{% url 'book_add' %}" name="book_add">Add Book</a> 
+<hr />
+{% if page_obj %}
+    {% for book in page_obj %}
+        <div class="container">
+            <h3><a href="{% url 'book_details' id=book.id page=page_obj.number %}">{{ book.title }}</a></h3>
+            <p class="lead">by {{ book.author }}</p>
+            <hr>
+        </div>  
+    {% endfor %}
+{% else %}
+    <h2>Not Book finding...</h2>
+{% endif %}
+    {% block pagination %}
+        {% if page_obj.has_previous %}
+            <a type="button" class="btn btn-primary btn-sm btn-round" href="{% url 'books' page_obj.previous_page_number %}">
+                Previous Page
+            </a>
+        {% endif%}
+        {% if page_obj.has_next %}
+            <a type="button" class="btn btn-primary btn-sm btn-round"   href="{% url 'books' page_obj.next_page_number %}">
+                Next Page
+            </a>
+        {% endif%}
+    {% endblock %}
+{% endblock %}

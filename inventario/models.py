@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django.urls import  reverse
 
 
+# Models
 class Book(models.Model):
     id = models.BigAutoField(null=False, unique=True, primary_key=True)
     title = models.CharField(null=False, unique=True, max_length=255)
@@ -27,7 +28,7 @@ class Author(models.Model):
     genre = models.ForeignKey('Genre', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.name    
     
 
 class Genre(models.Model):
@@ -37,7 +38,7 @@ class Genre(models.Model):
     def __str__(self):
         return self.type
 
-
+# ModelForms
 class BookForm(ModelForm):
     class Meta:
         model = Book

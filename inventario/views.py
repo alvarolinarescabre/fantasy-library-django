@@ -95,7 +95,7 @@ def login_request(request):
         else:
             messages.add_message(request, messages.ERROR,"Invalid username or password.")
             
-    return render(request=request, template_name="registration/login.html", context={"login_form":form})
+    return render(request=request, template_name="registration/login.html", context={ "login_form": form })
 
 @login_required
 def logout_request(request):
@@ -103,10 +103,11 @@ def logout_request(request):
 	messages.info(request, "You have successfully logged out.") 
 	return redirect("home")
 
+# Book
 @login_required
 def book_detail(request, id, page):
     book = models.Book.objects.filter(id = id)
-    return render(request, 'inventario/book_detail.html', {'book': book, 'page': page})
+    return render(request, 'inventario/book_detail.html', {'book': book, 'page': page })
 
 @login_required
 def book_add(request):
@@ -132,7 +133,7 @@ def book_add(request):
         
             return redirect('books', page=1)
 
-    return render(request, 'inventario/book_add.html', {'form':form})
+    return render(request, 'inventario/book_add.html', { 'form': form })
 
 @login_required
 def book_modify(request, id):
@@ -158,15 +159,15 @@ def book_modify(request, id):
 
             return redirect('books', page=1)
         
-    return render(request, 'inventario/book_modify.html', {'form':form})
+    return render(request, 'inventario/book_modify.html', { 'form': form })
 
 @login_required
 def book_delete(request, id):
-    book = models.Book.objects.get(id=id)
     obj = models.Book.objects.filter(pk=id).delete()
 
     return redirect('books', page=1)
 
+# Genre
 @login_required
 def genre_add(request):
     form = forms.Genre()
@@ -183,12 +184,12 @@ def genre_add(request):
         
             return redirect('genres', page=1)
         
-    return render(request, 'inventario/genre_add.html', {'form':form})
+    return render(request, 'inventario/genre_add.html', { 'form': form })
 
 @login_required
 def genre_detail(request, id, page):
     genre = models.Genre.objects.filter(id = id)
-    return render(request, 'inventario/genre_detail.html', {'genre': genre, 'page': page})
+    return render(request, 'inventario/genre_detail.html', { 'genre': genre, 'page': page })
 
 @login_required
 def genre_modify(request, id):
@@ -206,7 +207,7 @@ def genre_modify(request, id):
 
             return redirect('genres', page=1)
         
-    return render(request, 'inventario/genre_modacify.html', {'form':form})
+    return render(request, 'inventario/genre_modify.html', { 'form': form })
 
 @login_required
 def genre_delete(request, id):
@@ -215,6 +216,7 @@ def genre_delete(request, id):
 
     return redirect('genres', page=1)
 
+# Author
 @login_required
 def author_add(request):
     form = forms.Author()
@@ -235,12 +237,12 @@ def author_add(request):
         
             return redirect('authors', page=1)
     
-    return render(request, 'inventario/author_add.html', {'form':form})
+    return render(request, 'inventario/author_add.html', { 'form': form })
 
 @login_required
 def author_detail(request, id, page):
     author = models.Author.objects.filter(id = id)
-    return render(request, 'inventario/author_detail.html', {'author': author, 'page': page})
+    return render(request, 'inventario/author_detail.html', { 'author': author, 'page': page })
 
 @login_required
 def author_modify(request, id):
@@ -262,7 +264,7 @@ def author_modify(request, id):
 
             return redirect('authors', page=1)
         
-    return render(request, 'inventario/author_modify.html', {'form':form})
+    return render(request, 'inventario/author_modify.html', { 'form': form })
 
 @login_required
 def author_delete(request, id):

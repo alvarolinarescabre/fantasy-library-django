@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'inventario.apps.InventarioConfig',
     'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -130,8 +131,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Crispy Form Parameter
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# Enable Bootstrap on Crispy Forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap5')
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # Messages
 MESSAGE_TAGS = {

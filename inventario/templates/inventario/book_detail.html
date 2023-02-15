@@ -6,7 +6,7 @@
 {% block content %}
    {% for detail in book %}
    <a type="button" class="btn btn-primary btn-sm btn-round" href="{% url 'book_modify' id=detail.id %}" name="book_modify">Modify Book</a>
-   <a type="button" class="btn btn-primary btn-sm btn-round" href="{% url 'book_delete' id=detail.id %}" onclick="return confirm('Are you sure you want to delete this?')" name="book_delete">Delete Book</a>
+   <a type="button" class="btn btn-primary btn-sm btn-round" href="{% url 'book_delete' id=detail.id %}" onclick="return confirm('Are you sure you want to delete this book?')" name="book_delete">Delete Book</a>
 
    <div class="container">
       <br/><br/>
@@ -17,7 +17,7 @@
          <p class="lead">Publication: {{ detail.publish_date }} </p>
          <p class="lead">ISBN: {{ detail.isbn }} </p>
          <form action="{% url 'books' page=page %}" class="form-inline" method="get">
-         <button type="submit" class="btn btn-primary btn-lg mb-2">Back</button>
+            <button type="submit" class="btn btn-primary btn-lg mb-2">Back</button>
          </form>
       </div>
    {% endfor %}

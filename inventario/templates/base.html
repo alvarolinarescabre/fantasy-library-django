@@ -33,7 +33,9 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'books' 1 %}">Books</a>
+                        <hr />
                         <a class="dropdown-item" href="{% url 'authors' 1 %}">Authors</a>
+                        <hr />
                         <a class="dropdown-item" href="{% url 'genres' 1 %}">Genres</a>
                     </div>
                     {% if user.is_authenticated %}

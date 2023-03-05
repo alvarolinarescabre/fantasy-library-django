@@ -24,5 +24,5 @@ urlpatterns = [
     path('inventario/author_modify/<int:id>', views.author_modify, name='author_modify'),
     path('inventario/author_delete/<int:id>', views.author_delete, name='author_delete'),
     path('inventario/search/', views.SearchResultsView.as_view(), name="search"),
-    path("books.json", views.books_api, name="books_api"),
+    path("books.json", views.books_pagination, name="books_pagination"),
 ]

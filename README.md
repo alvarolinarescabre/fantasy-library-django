@@ -47,7 +47,7 @@ http://127.0.0.1:8000
 ```
 ## Authors
 
-  - **Alvaro "Chamo" Linares Cabrén**
+  - **Alvaro "Chamo" Linares Cabré**
     [GitHub](https://github.com/alvarolinarescabre)
 
 ## License

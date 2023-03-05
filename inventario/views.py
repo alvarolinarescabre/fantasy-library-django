@@ -17,13 +17,16 @@ class BooksListView(LoginRequiredMixin, ListView):
     paginate_by = 2
     model = models.Book
 
+
 class AuthorsListView(LoginRequiredMixin, ListView):
     paginate_by = 2
     model = models.Author
 
+
 class GenresListView(LoginRequiredMixin, ListView):
     paginate_by = 2
     model = models.Genre
+
 
 class SearchResultsView(LoginRequiredMixin, ListView):
     model = models.Book
@@ -36,7 +39,8 @@ class SearchResultsView(LoginRequiredMixin, ListView):
         )
         return object_list
 
-def books_api(request):
+
+def books_pagination(request):
     page_number = request.GET.get("page", 1)
     per_page = request.GET.get("per_page", 2)
     startswith = request.GET.get("startswith", "")
@@ -57,8 +61,10 @@ def books_api(request):
     }
     return JsonResponse(payload)
 
+
 def home(request):
     return render(request, 'home/index.html')
+
 
 def register_request(request):
     if request.method == "POST":
@@ -75,6 +81,7 @@ def register_request(request):
     
     return render (request=request, template_name="registration/register.html", context={"register_form": form})
 
+
 def login_request(request):
     form = AuthenticationForm()
 
@@ -89,25 +96,33 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 messages.add_message(request, messages.INFO, f"You are now logged in as {username}.")
-                return redirect("home")
+                if "swagger" in request.get_full_path():
+                    return redirect("schema-swagger-ui")
+                elif "redoc" in request.get_full_path():
+                    return redirect("schema-redoc")
+                else:
+                    return redirect("home")
             else:
-                messages.add_message(request, messages.ERROR,"Invalid username or password.")
+                messages.add_message(request, messages.ERROR, "Invalid username or password.")
         else:
             messages.add_message(request, messages.ERROR,"Invalid username or password.")
             
     return render(request=request, template_name="registration/login.html", context={ "login_form": form })
 
+
 @login_required
 def logout_request(request):
-	logout(request)
-	messages.info(request, "You have successfully logged out.") 
-	return redirect("home")
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect("home")
+
 
 # Book
 @login_required
 def book_detail(request, id, page):
     book = models.Book.objects.filter(id = id)
     return render(request, 'inventario/book_detail.html', {'book': book, 'page': page })
+
 
 @login_required
 def book_add(request):
@@ -135,6 +150,7 @@ def book_add(request):
 
     return render(request, 'inventario/book_add.html', { 'form': form })
 
+
 @login_required
 def book_modify(request, id):
     book = models.Book.objects.get(id=id)
@@ -161,11 +177,13 @@ def book_modify(request, id):
         
     return render(request, 'inventario/book_modify.html', { 'form': form })
 
+
 @login_required
 def book_delete(request, id):
     obj = models.Book.objects.filter(pk=id).delete()
 
     return redirect('books', page=1)
+
 
 # Genre
 @login_required
@@ -186,10 +204,12 @@ def genre_add(request):
         
     return render(request, 'inventario/genre_add.html', { 'form': form })
 
+
 @login_required
 def genre_detail(request, id, page):
     genre = models.Genre.objects.filter(id = id)
     return render(request, 'inventario/genre_detail.html', { 'genre': genre, 'page': page })
+
 
 @login_required
 def genre_modify(request, id):
@@ -209,12 +229,14 @@ def genre_modify(request, id):
         
     return render(request, 'inventario/genre_modify.html', { 'form': form })
 
+
 @login_required
 def genre_delete(request, id):
     genre = models.Genre.objects.get(id=id)
     obj = models.Genre.objects.filter(pk=id).delete()
 
     return redirect('genres', page=1)
+
 
 # Author
 @login_required
@@ -239,10 +261,12 @@ def author_add(request):
     
     return render(request, 'inventario/author_add.html', { 'form': form })
 
+
 @login_required
 def author_detail(request, id, page):
     author = models.Author.objects.filter(id = id)
     return render(request, 'inventario/author_detail.html', { 'author': author, 'page': page })
+
 
 @login_required
 def author_modify(request, id):
@@ -265,6 +289,7 @@ def author_modify(request, id):
             return redirect('authors', page=1)
         
     return render(request, 'inventario/author_modify.html', { 'form': form })
+
 
 @login_required
 def author_delete(request, id):
